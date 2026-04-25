@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Al Mamun — Performance Marketing Expert</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+  /* ─── RESET & BASE ─── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #0a0a0a;
+    color: #e8e6e0;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ─── CSS VARIABLES ─── */
+  :root {
+    --accent: #c8f135;
+    --accent-dim: rgba(200,241,53,0.12);
+    --accent-border: rgba(200,241,53,0.25);
+    --bg: #0a0a0a;
+    --bg-2: #111111;
+    --bg-3: #161616;
+    --bg-card: #141414;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text-primary: #f0ede6;
+    --text-secondary: #8a8880;
+    --text-muted: #555450;
+    --font-display: 'Syne', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+
+  /* ─── NOISE TEXTURE ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9999; opacity: 0.6;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 40px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  nav.scrolled { padding: 14px 40px; }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 400;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .nav-links a:hover { color: var(--text-primary); }
+  .nav-cta {
+    background: var(--accent); color: #0a0a0a;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700;
+    padding: 9px 22px; border-radius: 8px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  .nav-cta:hover { background: #d4f54a; transform: translateY(-1px); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 40px 80px;
+    position: relative; overflow: hidden;
+  }
+  .hero-glow {
+    position: absolute; top: -20%; right: -10%;
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,241,53,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute; bottom: 0; left: -5%;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,241,53,0.03) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--bg-3); border: 1px solid var(--accent-border);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; color: var(--accent);
+    margin-bottom: 36px; width: fit-content;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)}
+  }
+  .hero-headline {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 7vw, 88px);
+    font-weight: 800; line-height: 0.95;
+    letter-spacing: -0.04em;
+    color: var(--text-primary);
+    max-width: 900px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-headline .accent-word { color: var(--accent); }
+  .hero-headline .outline-word {
+    -webkit-text-stroke: 1.5px rgba(248,246,240,0.3);
+    color: transparent;
+  }
+  .hero-sub {
+    font-size: 16px; font-weight: 300;
+    color: var(--text-secondary); max-width: 520px;
+    margin-top: 24px; line-height: 1.7;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 14px; margin-top: 40px; align-items: center;
+    animation: fadeUp 0.6s 0.3s ease both;
+    flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--accent); color: #0a0a0a;
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 700;
+    padding: 14px 32px; border-radius: 10px;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  .btn-primary:hover { background: #d4f54a; transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,241,53,0.25); }
+  .btn-ghost {
+    background: transparent; color: var(--text-primary);
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 600;
+    padding: 14px 32px; border-radius: 10px;
+    text-decoration: none; border: 1px solid var(--border-hover); cursor: pointer;
+    transition: all 0.2s; letter-spacing: 0.01em;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.04); }
+
+  /* ─── HERO STATS ─── */
+  .hero-stats {
+    display: flex; gap: 0; margin-top: 64px;
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    overflow: hidden; background: var(--bg-card);
+    width: fit-content; max-width: 100%;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat-item {
+    padding: 22px 36px; position: relative;
+    border-right: 1px solid var(--border);
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: var(--font-display);
+    font-size: 32px; font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+  .stat-num .accent { color: var(--accent); }
+  .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 4px; letter-spacing: 0.02em; }
+
+  /* ─── PLATFORM STRIP ─── */
+  .platform-strip {
+    padding: 32px 40px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 40px;
+    overflow-x: auto;
+  }
+  .platform-label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase; white-space: nowrap; }
+  .platform-logos { display: flex; gap: 32px; align-items: center; }
+  .platform-logo {
+    font-family: var(--font-display);
+    font-size: 14px; font-weight: 700;
+    color: var(--text-muted); letter-spacing: 0.02em;
+    white-space: nowrap;
+    padding: 8px 16px; border-radius: 8px;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+  }
+  .platform-logo:hover { color: var(--text-primary); border-color: var(--border-hover); }
+
+  /* ─── SECTION WRAPPER ─── */
+  section { padding: 100px 40px; }
+  .section-tag {
+    font-size: 11px; font-weight: 600;
+    color: var(--accent); letter-spacing: 0.12em;
+    text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-tag::before {
+    content: ''; width: 24px; height: 1px; background: var(--accent);
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text-primary); max-width: 700px;
+  }
+  .section-title .accent { color: var(--accent); }
+
+  /* ─── RESULTS / CASE STUDIES ─── */
+  #results { background: var(--bg); }
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px; margin-top: 56px;
+  }
+  .result-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 28px;
+    transition: all 0.3s; cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .result-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent); opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .result-card:hover { border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+  .result-card:hover::before { opacity: 1; }
+  .result-card-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--bg-3); border: 1px solid var(--border);
+    border-radius: 100px; padding: 4px 12px;
+    font-size: 11px; color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+  .result-card-tag span {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: var(--accent); display: inline-block;
+  }
+  .result-card-title {
+    font-family: var(--font-display);
+    font-size: 17px; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 20px;
+    line-height: 1.3;
+  }
+  .result-metrics {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .metric-box {
+    background: var(--bg-3); border-radius: 10px;
+    padding: 14px; border: 1px solid var(--border);
+  }
+  .metric-val {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 800;
+    color: var(--accent); letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .metric-name { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .result-outcome {
+    margin-top: 18px; padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-size: 13px; color: var(--text-secondary); line-height: 1.6;
+    font-style: italic;
+  }
+
+  /* ─── SERVICES ─── */
+  #services { background: var(--bg-2); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px; margin-top: 56px;
+  }
+  .service-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 28px;
+    transition: all 0.3s;
+  }
+  .service-card:hover { border-color: var(--accent-border); transform: translateY(-2px); }
+  .service-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 18px;
+  }
+  .service-title {
+    font-family: var(--font-display);
+    font-size: 16px; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 10px;
+  }
+  .service-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .service-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+  .stag {
+    font-size: 10px; padding: 3px 9px; border-radius: 100px;
+    background: var(--bg-3); border: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+
+  /* ─── HOOKS SECTION ─── */
+  #hooks { background: var(--bg); }
+  .hooks-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 32px;
+    margin-top: 56px; align-items: start;
+  }
+  .hooks-list { display: flex; flex-direction: column; gap: 16px; }
+  .hook-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px;
+    border-left: 3px solid var(--accent);
+    transition: all 0.2s;
+  }
+  .hook-card:hover { background: var(--bg-3); }
+  .hook-meta { font-size: 11px; color: var(--text-muted); margin-bottom: 10px; letter-spacing: 0.02em; }
+  .hook-text {
+    font-size: 15px; color: var(--text-primary);
+    line-height: 1.5; font-weight: 400;
+    font-style: italic;
+  }
+  .hook-result {
+    margin-top: 12px; font-size: 12px; color: var(--accent); font-weight: 500;
+  }
+  .hooks-side {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 32px;
+    position: sticky; top: 100px;
+  }
+  .hooks-side-title {
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 800;
+    color: var(--text-primary); margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .hooks-side p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 20px; }
+  .framework-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 0; border-bottom: 1px solid var(--border);
+  }
+  .framework-item:last-child { border-bottom: none; }
+  .framework-num {
+    font-family: var(--font-display);
+    font-size: 24px; font-weight: 800;
+    color: var(--accent-border); line-height: 1; min-width: 28px;
+  }
+  .framework-text { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+  .framework-text strong { color: var(--text-primary); font-weight: 500; }
+
+  /* ─── PROCESS ─── */
+  #process { background: var(--bg-2); }
+  .process-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 56px;
+    border: 1px solid var(--border); border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .process-step {
+    padding: 32px 28px;
+    border-right: 1px solid var(--border);
+    transition: background 0.3s;
+    position: relative;
+  }
+  .process-step:last-child { border-right: none; }
+  .process-step:hover { background: var(--bg-3); }
+  .process-num {
+    font-family: var(--font-display);
+    font-size: 48px; font-weight: 800;
+    color: var(--bg-3); letter-spacing: -0.04em;
+    line-height: 1; margin-bottom: 20px;
+    -webkit-text-stroke: 1px var(--border-hover);
+    color: transparent;
+  }
+  .process-step:hover .process-num { -webkit-text-stroke-color: var(--accent-border); }
+  .process-step-title {
+    font-family: var(--font-display);
+    font-size: 16px; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 10px;
+  }
+  .process-step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+
+  /* ─── TESTIMONIALS ─── */
+  #testimonials { background: var(--bg); }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px; margin-top: 56px;
+  }
+  .testimonial-card {
+    background: var(--bg-card); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 28px;
+    transition: all 0.3s;
+  }
+  .testimonial-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
+  .stars { color: var(--accent); font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+  .testimonial-text {
+    font-size: 15px; color: var(--text-secondary);
+    line-height: 1.7; margin-bottom: 20px;
+    font-style: italic;
+  }
+  .testimonial-text strong { color: var(--accent); font-style: normal; }
+  .testimonial-author { display: flex; align-items: center; gap: 14px; }
+  .author-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--accent-dim); border: 1px solid var(--accent-border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-display); font-size: 15px; font-weight: 700;
+    color: var(--accent);
+  }
+  .author-name { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+  .author-role { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--bg-2); }
+  .about-inner {
+    display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; align-items: center;
+  }
+  .about-photo {
+    aspect-ratio: 3/4; border-radius: var(--radius-lg);
+    background: var(--bg-3); border: 1px solid var(--border);
+    overflow: hidden; position: relative;
+  }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .about-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 12px;
+    color: var(--text-muted);
+  }
+  .about-photo-placeholder .initials {
+    font-family: var(--font-display);
+    font-size: 72px; font-weight: 800;
+    color: var(--bg); background: var(--accent);
+    width: 120px; height: 120px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cert-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .cert-badge {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg-3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 14px;
+    font-size: 12px; color: var(--text-secondary);
+  }
+  .cert-badge span { font-size: 16px; }
+  .about-text p { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
+  .about-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px;
+  }
+  .about-stat { text-align: center; padding: 20px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); }
+  .about-stat-num { font-family: var(--font-display); font-size: 28px; font-weight: 800; color: var(--accent); }
+  .about-stat-lbl { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
+  /* ─── CTA SECTION ─── */
+  #cta {
+    background: var(--bg);
+    padding: 120px 40px;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px; height: 400px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(200,241,53,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-inner { position: relative; max-width: 700px; margin: 0 auto; }
+  .cta-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--bg-3); border: 1px solid var(--accent-border);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 12px; color: var(--accent); margin-bottom: 32px;
+  }
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px); font-weight: 800;
+    letter-spacing: -0.04em; line-height: 1.0;
+    color: var(--text-primary); margin-bottom: 20px;
+  }
+  .cta-title .accent { color: var(--accent); }
+  .cta-sub { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 40px; }
+  .cta-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .cta-note { font-size: 12px; color: var(--text-muted); margin-top: 16px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--bg-2); padding: 40px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 16px; font-weight: 800;
+    color: var(--text-primary);
+  }
+  .footer-logo span { color: var(--accent); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text-primary); }
+  .footer-copy { font-size: 12px; color: var(--text-muted); }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 768px) {
+    nav { padding: 16px 20px; }
+    nav.scrolled { padding: 12px 20px; }
+    .nav-links { display: none; }
+    section { padding: 70px 20px; }
+    .hero { padding: 100px 20px 60px; }
+    .hero-stats { flex-direction: column; width: 100%; }
+    .stat-item { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat-item:last-child { border-bottom: none; }
+    .results-grid { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .hooks-inner { grid-template-columns: 1fr; }
+    .process-grid { grid-template-columns: 1fr 1fr; }
+    .about-inner { grid-template-columns: 1fr; }
+    .about-photo { max-width: 300px; margin: 0 auto; aspect-ratio: 1; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+    .platform-strip { gap: 20px; }
+    .footer-links { flex-wrap: wrap; justify-content: center; }
+  }
+  @media (max-width: 480px) {
+    .process-grid { grid-template-columns: 1fr; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .hero-stats { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav id="navbar">
+  <div class="nav-logo">Al<span>.</span>Mamun</div>
+  <ul class="nav-links">
+    <li><a href="#results">Results</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#hooks">Creative</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a href="#cta" class="nav-cta">Free Audit →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-badge">Available for new clients · Q2 2026</div>
+
+  <h1 class="hero-headline">
+    I turn your<br>
+    <span class="accent-word">ad spend</span> into<br>
+    <span class="outline-word">predictable</span> profit.
+  </h1>
+
+  <p class="hero-sub">
+    Meta · Google · TikTok · LinkedIn — 6+ years scaling 80+ brands across every major platform. I cut waste, engineer funnels, and obsess over ROAS until the numbers make you smile.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#results" class="btn-primary">View My Results</a>
+    <a href="#cta" class="btn-ghost">Get a Free Audit</a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter" data-target="80">0</span><span class="accent">+</span></div>
+      <div class="stat-lbl">Brands Served</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter" data-target="4" data-decimal="true">0</span><span class="accent">×</span></div>
+      <div class="stat-lbl">Avg ROAS</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="accent">$</span><span class="counter" data-target="2">0</span><span class="accent">M+</span></div>
+      <div class="stat-lbl">Ad Spend Managed</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter" data-target="6">0</span><span class="accent">+</span></div>
+      <div class="stat-lbl">Years Experience</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num"><span class="counter" data-target="42">0</span><span class="accent">%</span></div>
+      <div class="stat-lbl">Avg CPR Reduction</div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORM STRIP -->
+<div class="platform-strip">
+  <span class="platform-label">Platforms</span>
+  <div class="platform-logos">
+    <span class="platform-logo">Meta Ads</span>
+    <span class="platform-logo">Google Ads</span>
+    <span class="platform-logo">TikTok Ads</span>
+    <span class="platform-logo">LinkedIn Ads</span>
+    <span class="platform-logo">Meta Blueprint ✓</span>
+    <span class="platform-logo">Google Certified ✓</span>
+  </div>
+</div>
+
+<!-- RESULTS / CASE STUDIES -->
+<section id="results">
+  <div class="section-tag">Proven Results</div>
+  <h2 class="section-title reveal">Real campaigns.<br><span class="accent">Real numbers.</span></h2>
+
+  <div class="results-grid">
+
+    <div class="result-card reveal">
+      <div class="result-card-tag"><span></span> Meta Ads · E-commerce</div>
+      <div class="result-card-title">Fashion brand — scaled from $2K to $12K/mo ad spend</div>
+      <div class="result-metrics">
+        <div class="metric-box"><div class="metric-val">5.8×</div><div class="metric-name">ROAS</div></div>
+        <div class="metric-box"><div class="metric-val">↓42%</div><div class="metric-name">Cost Per Result</div></div>
+        <div class="metric-box"><div class="metric-val">4.1%</div><div class="metric-name">CTR</div></div>
+        <div class="metric-box"><div class="metric-val">$0.62</div><div class="metric-name">CPM</div></div>
+      </div>
+      <div class="result-outcome">"Went from barely breaking even to a consistent 5× return. Al Mamun restructured our entire funnel."</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-card-tag"><span></span> Google Ads · Lead Gen</div>
+      <div class="result-card-title">Real estate agency — UAE market entry campaign</div>
+      <div class="result-metrics">
+        <div class="metric-box"><div class="metric-val">$4.20</div><div class="metric-name">Cost Per Lead</div></div>
+        <div class="metric-box"><div class="metric-val">8.3%</div><div class="metric-name">Conv. Rate</div></div>
+        <div class="metric-box"><div class="metric-val">6.2%</div><div class="metric-name">CTR</div></div>
+        <div class="metric-box"><div class="metric-val">320%</div><div class="metric-name">ROI</div></div>
+      </div>
+      <div class="result-outcome">"The cost per lead dropped from $22 to $4.20 in the first 6 weeks. Exceptional targeting strategy."</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-card-tag"><span></span> TikTok Ads · D2C Brand</div>
+      <div class="result-card-title">Skincare brand — viral hook strategy launch</div>
+      <div class="result-metrics">
+        <div class="metric-box"><div class="metric-val">7.2×</div><div class="metric-name">ROAS</div></div>
+        <div class="metric-box"><div class="metric-val">12%</div><div class="metric-name">Hook Rate</div></div>
+        <div class="metric-box"><div class="metric-val">2.1</div><div class="metric-name">Frequency</div></div>
+        <div class="metric-box"><div class="metric-val">↓58%</div><div class="metric-name">CPM Drop</div></div>
+      </div>
+      <div class="result-outcome">"The creative frameworks he built became our internal standard. Every ad now outperforms the last."</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-card-tag"><span></span> LinkedIn Ads · B2B SaaS</div>
+      <div class="result-card-title">HR software — enterprise lead generation</div>
+      <div class="result-metrics">
+        <div class="metric-box"><div class="metric-val">$38</div><div class="metric-name">Cost Per Lead</div></div>
+        <div class="metric-box"><div class="metric-val">3.8%</div><div class="metric-name">CTR</div></div>
+        <div class="metric-box"><div class="metric-val">$4,200</div><div class="metric-name">Avg Deal Size</div></div>
+        <div class="metric-box"><div class="metric-val">11×</div><div class="metric-name">Pipeline ROI</div></div>
+      </div>
+      <div class="result-outcome">"He cracked LinkedIn audiences nobody else could. Our CAC dropped 60% in 3 months."</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-card-tag"><span></span> Meta Ads · Restaurant Chain</div>
+      <div class="result-card-title">Food delivery brand — local domination strategy</div>
+      <div class="result-metrics">
+        <div class="metric-box"><div class="metric-val">$0.18</div><div class="metric-name">Cost Per Click</div></div>
+        <div class="metric-box"><div class="metric-val">↓67%</div><div class="metric-name">Wasted Spend</div></div>
+        <div class="metric-box"><div class="metric-val">9.4%</div><div class="metric-name">CTR</div></div>
+        <div class="metric-box"><div class="metric-val">240%</div><div class="metric-name">Revenue Lift</div></div>
+      </div>
+      <div class="result-outcome">"240% revenue growth in 4 months. He identified audience segments we had no idea existed."</div>
+    </div>
+
+    <div class="result-card reveal">
+      <div class="result-card-tag"><span></span> Google + Meta · EdTech</div>
+      <div class="result-card-title">Online course platform — student acquisition at scale</div>
+      <div class="result-metrics">
+        <div class="metric-box"><div class="metric-val">$8.50</div><div class="metric-name">Cost Per Enroll</div></div>
+        <div class="metric-box"><div class="metric-val">4.6×</div><div class="metric-name">ROAS</div></div>
+        <div class="metric-box"><div class="metric-val">$0M+</div><div class="metric-name">Revenue</div></div>
+        <div class="metric-box"><div class="metric-val">↓51%</div><div class="metric-name">CPA Drop</div></div>
+      </div>
+      <div class="result-outcome">"From 50 signups/month to 800+. The multi-platform funnel he built just keeps compounding."</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-tag">What I Do</div>
+  <h2 class="section-title reveal">Full-spectrum<br><span class="accent">performance marketing.</span></h2>
+
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">📣</div>
+      <div class="service-title">Paid Advertising</div>
+      <div class="service-desc">End-to-end campaign management across Meta, Google, TikTok & LinkedIn. Targeting, budgeting, bidding, scaling — handled.</div>
+      <div class="service-tags">
+        <span class="stag">Meta Ads</span><span class="stag">Google Ads</span><span class="stag">TikTok</span><span class="stag">LinkedIn</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🎯</div>
+      <div class="service-title">Funnel Architecture</div>
+      <div class="service-desc">Custom conversion funnels built from audience insights. Every touchpoint is optimised for the next step — no leaks.</div>
+      <div class="service-tags">
+        <span class="stag">Retargeting</span><span class="stag">Landing Pages</span><span class="stag">Audience Maps</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">📈</div>
+      <div class="service-title">ROAS Optimisation</div>
+      <div class="service-desc">Systematic CPR, CTR, CPM & frequency analysis. I find where money is being wasted and redirect it to what works.</div>
+      <div class="service-tags">
+        <span class="stag">A/B Testing</span><span class="stag">Bid Strategy</span><span class="stag">Budget Scaling</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">✍️</div>
+      <div class="service-title">Ad Creative Strategy</div>
+      <div class="service-desc">Hook writing, ad copy, and post captions engineered for stop-the-scroll performance. Every word has a job to do.</div>
+      <div class="service-tags">
+        <span class="stag">Hook Writing</span><span class="stag">Ad Copy</span><span class="stag">Creative Briefs</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🔧</div>
+      <div class="service-title">Tracking & Analytics</div>
+      <div class="service-desc">Conversion API setup, GTM, GA4, and accurate multi-touch attribution so every decision is backed by clean data.</div>
+      <div class="service-tags">
+        <span class="stag">CAPI</span><span class="stag">GTM</span><span class="stag">GA4</span><span class="stag">Attribution</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🚀</div>
+      <div class="service-title">Ad Scaling Systems</div>
+      <div class="service-desc">Proven frameworks for scaling spend without losing efficiency. Horizontal & vertical scaling done right.</div>
+      <div class="service-tags">
+        <span class="stag">Budget Scaling</span><span class="stag">CBO</span><span class="stag">Lookalike Stacks</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOOKS / CREATIVE SECTION -->
+<section id="hooks">
+  <div class="section-tag">Creative Strategy</div>
+  <h2 class="section-title reveal">Hooks that stop<br><span class="accent">the scroll.</span></h2>
+
+  <div class="hooks-inner">
+    <div class="hooks-list">
+      <div class="hook-card reveal">
+        <div class="hook-meta">FASHION E-COMM · META · CTR 4.1%</div>
+        <div class="hook-text">"You're not paying too much for ads. You're paying for the wrong ones."</div>
+        <div class="hook-result">→ CTR jumped from 0.8% to 4.1% after copy rewrite</div>
+      </div>
+      <div class="hook-card reveal">
+        <div class="hook-meta">LEAD GEN · GOOGLE · 8.3% CONV RATE</div>
+        <div class="hook-text">"If your ads are running but your sales aren't — this is exactly why."</div>
+        <div class="hook-result">→ Conversion rate lifted from 2.1% to 8.3%</div>
+      </div>
+      <div class="hook-card reveal">
+        <div class="hook-meta">SKINCARE D2C · TIKTOK · HOOK RATE 12%</div>
+        <div class="hook-text">"POV: You finally found an ad manager who actually reads the data."</div>
+        <div class="hook-result">→ Hook rate 3× above TikTok benchmark (4%)</div>
+      </div>
+      <div class="hook-card reveal">
+        <div class="hook-meta">SAAS · LINKEDIN · CPL $38</div>
+        <div class="hook-text">"Most HR teams are one bad hire away from a six-figure mistake. Here's how to stop it."</div>
+        <div class="hook-result">→ 67% lower CPL vs previous agency</div>
+      </div>
+      <div class="hook-card reveal">
+        <div class="hook-meta">FOOD DELIVERY · META · CTR 9.4%</div>
+        <div class="hook-text">"Your competitor just got 200 orders today. Yours got 12. The difference is one decision."</div>
+        <div class="hook-result">→ CTR 9.4% · Revenue up 240% in 4 months</div>
+      </div>
+    </div>
+
+    <div class="hooks-side reveal">
+      <div class="hooks-side-title">My creative framework</div>
+      <p>Every ad I write follows a battle-tested structure. Hook → Pain → Promise → Proof → CTA. It's not magic — it's methodology.</p>
+      <div class="framework-item">
+        <div class="framework-num">01</div>
+        <div class="framework-text"><strong>Interrupt</strong> — The hook must stop the scroll in 1.5 seconds. Pattern disruption, bold claim, or mirror statement.</div>
+      </div>
+      <div class="framework-item">
+        <div class="framework-num">02</div>
+        <div class="framework-text"><strong>Agitate</strong> — Name the pain with precision. Vague pain = low CTR. Specific pain = high intent.</div>
+      </div>
+      <div class="framework-item">
+        <div class="framework-num">03</div>
+        <div class="framework-text"><strong>Promise</strong> — A single, believable outcome. Not "grow your business" — "cut your CPL by 40%."</div>
+      </div>
+      <div class="framework-item">
+        <div class="framework-num">04</div>
+        <div class="framework-text"><strong>Prove</strong> — Number, testimonial, or before/after. One proof point crushes skepticism.</div>
+      </div>
+      <div class="framework-item">
+        <div class="framework-num">05</div>
+        <div class="framework-text"><strong>Close</strong> — CTA tied to the hook's promise. Never generic "Learn More" — always specific.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="section-tag">How I Work</div>
+  <h2 class="section-title reveal">From audit to<br><span class="accent">scale in 4 steps.</span></h2>
+
+  <div class="process-grid reveal">
+    <div class="process-step">
+      <div class="process-num">01</div>
+      <div class="process-step-title">Free Ad Audit</div>
+      <div class="process-step-desc">I review your current account, identify wasted spend, missed audiences, and quick wins — no cost, no commitment.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">02</div>
+      <div class="process-step-title">Strategy Build</div>
+      <div class="process-step-desc">Custom funnel design, audience mapping, creative brief, and KPI targets all locked in before a single dollar is spent.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">03</div>
+      <div class="process-step-title">Launch & Test</div>
+      <div class="process-step-desc">Campaigns go live with structured A/B tests, pixel + CAPI setup, and real-time performance monitoring from day one.</div>
+    </div>
+    <div class="process-step">
+      <div class="process-num">04</div>
+      <div class="process-step-title">Scale & Report</div>
+      <div class="process-step-desc">Weekly reports, smart budget scaling, ongoing creative refresh, and ROAS optimisation — every week, compounding.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-tag">Client Testimonials</div>
+  <h2 class="section-title reveal">What clients<br><span class="accent">say about results.</span></h2>
+
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Al Mamun is not just an ad manager — he's a growth strategist. Our ROAS went from <strong>1.8× to 5.8×</strong> in 60 days. I've worked with 4 agencies before. None of them came close."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">RA</div>
+        <div>
+          <div class="author-name">R. Ahmed</div>
+          <div class="author-role">CEO, Fashion Brand — Dhaka</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"Our Google Ads were haemorrhaging money. He found the leaks in week 1 and cut our wasted spend by <strong>67%</strong>. Then rebuilt everything from scratch. Pipeline is now full every month."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">SK</div>
+        <div>
+          <div class="author-name">S. Khan</div>
+          <div class="author-role">Founder, Real Estate — UAE</div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-card reveal">
+      <div class="stars">★★★★★</div>
+      <div class="testimonial-text">"The TikTok hooks he wrote were unreal. <strong>12% hook rate</strong>, 7× ROAS in month 2. He understands the platform at a level I haven't seen from anyone else. Absolute wizard with creative."</div>
+      <div class="testimonial-author">
+        <div class="author-avatar">NT</div>
+        <div>
+          <div class="author-name">N. Tasnim</div>
+          <div class="author-role">Founder, Skincare D2C — Bangladesh</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-photo">
+      <div class="about-photo-placeholder">
+        <div class="initials">AM</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-tag">About Me</div>
+      <h2 class="section-title" style="margin-bottom:24px">Md Abdullah<br><span class="accent">Al Mamun</span></h2>
+      <p>I'm a Performance Marketing Manager based in Dhaka, Bangladesh — working with brands globally. I started running ads 6+ years ago and became obsessed with one question: why do most ad accounts leave 60–70% of their potential on the table?</p>
+      <p>The answer is almost always the same: poor structure, guesswork targeting, and copy that sounds like an ad. I fix all three — with data, systems, and creative that actually respects the audience's intelligence.</p>
+      <p>When I'm not optimising campaigns, I'm building creative frameworks, studying buyer psychology, and testing new hooks. My goal is simple: every client should feel like their ad account is finally working the way it always should have.</p>
+      <div class="cert-badges">
+        <div class="cert-badge"><span>✅</span> Meta Blueprint Certified</div>
+        <div class="cert-badge"><span>✅</span> Google Ads Certified</div>
+        <div class="cert-badge"><span>✅</span> 6+ Years Experience</div>
+        <div class="cert-badge"><span>🌍</span> Working Globally</div>
+      </div>
+      <div class="about-stats">
+        <div class="about-stat">
+          <div class="about-stat-num">80+</div>
+          <div class="about-stat-lbl">Brands Served</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">$2M+</div>
+          <div class="about-stat-lbl">Ad Spend Managed</div>
+        </div>
+        <div class="about-stat">
+          <div class="about-stat-num">4.2×</div>
+          <div class="about-stat-lbl">Average ROAS</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <div class="cta-badge">🎯 Free Ad Account Audit — No commitment</div>
+    <h2 class="cta-title">Ready to stop<br><span class="accent">wasting ad spend?</span></h2>
+    <p class="cta-sub">I'll audit your ad account for free — identify wasted spend, missed opportunities, and a clear path to better ROAS. 30 minutes. No fluff. Just data.</p>
+    <div class="cta-actions">
+      <a href="https://almamun.work/#contact" class="btn-primary">Book Free Audit →</a>
+      <a href="mailto:hello@almamun.work" class="btn-ghost">Email Me Directly</a>
+    </div>
+    <div class="cta-note">Typically respond within 24 hours · Based in Dhaka, available globally</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Al<span>.</span>Mamun</div>
+  <div class="footer-links">
+    <a href="#results">Results</a>
+    <a href="#services">Services</a>
+    <a href="#process">Process</a>
+    <a href="#about">About</a>
+    <a href="https://almamun.work">Live Site</a>
+  </div>
+  <div class="footer-copy">© 2026 Abdullah Al Mamun · Performance Marketing</div>
+</footer>
+
+<script>
+  // ─── NAVBAR SCROLL ───
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ─── COUNTER ANIMATION ───
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.target);
+    const isDecimal = el.dataset.decimal === 'true';
+    const duration = 2000;
+    const start = performance.now();
+    const update = (now) => {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const val = target * ease;
+      el.textContent = isDecimal ? val.toFixed(1) : Math.floor(val);
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = isDecimal ? target.toFixed(1) : target;
+    };
+    requestAnimationFrame(update);
+  }
+
+  // ─── INTERSECTION OBSERVER ───
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+    revealObserver.observe(el);
+  });
+
+  // ─── COUNTER OBSERVER ───
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.counter').forEach(animateCounter);
+        counterObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) counterObserver.observe(heroStats);
+
+  // ─── SMOOTH SCROLL ───
+  document.querySelectorAll('a[href^="#"]').forEach(link => {
+    link.addEventListener('click', e => {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+</script>
+</body>
+</html>
